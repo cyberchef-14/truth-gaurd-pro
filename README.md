@@ -1,20 +1,48 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
+🛡️ TruthGuard — AI-Powered Misinformation Detection Platform
 
-# Run and deploy your AI Studio app
+TruthGuard is a full-stack web application that detects fake, real, and mixed information in real time using AI. It analyzes user-submitted text or URLs, provides credibility scores with explanations, stores tamper-resistant verification logs, and supports community validation to improve trust in digital content.
 
-This contains everything you need to run your app locally.
+🚀 Features
 
-View your app in AI Studio: https://ai.studio/apps/drive/1sGVPLruTFA3c18CQfJ3yY1eSKfJFxbj1
+✅ AI-based fact verification (Real / Fake / Mixed)
 
-## Run Locally
+📊 Confidence scoring with explanation
 
-**Prerequisites:**  Node.js
+🔐 Firebase Authentication (Email / Google)
 
+🧾 Immutable verification logs using SHA-256 hashing
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+👍 Community voting system (Agree / Disagree)
+
+📈 User & Admin dashboards
+
+⚡ Real-time Firestore updates
+
+🌐 Ready for browser-extension integration
+
+🧠 Technology Stack
+Frontend
+
+Next.js (React)
+
+Tailwind CSS
+
+Backend & Services
+
+Firebase Authentication
+
+Firestore Database
+
+Firebase Emulator Suite (for local dev)
+
+AI Engine
+
+Gemini 2.5 Pro API
+
+Security
+
+SHA-256 hashing for verification records
+
+Firestore Security Rules
+
+Rate limiting & input validation
