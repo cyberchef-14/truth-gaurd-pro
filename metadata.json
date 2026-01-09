@@ -1,0 +1,8 @@
+{
+  "name": "TruthGuard Pro",
+  "description": "Multimodal AI misinformation detection with cryptographic verification.",
+  "requestFramePermissions": [
+    "camera",
+    "geolocation"
+  ]
+}
