@@ -11,12 +11,13 @@ const App: React.FC = () => {
   const [user, setUser] = useState<User | null>(null);
   const [activeTab, setActiveTab] = useState('check');
   const [isInitializing, setIsInitializing] = useState(true);
+  const [theme, setTheme] = useState<'dark' | 'light'>('dark');
 
   useEffect(() => {
     const savedUser = localStorage.getItem('tg_user');
-    if (savedUser) {
-      setUser(JSON.parse(savedUser));
-    }
+    const savedTheme = localStorage.getItem('tg_theme') as 'dark' | 'light';
+    if (savedUser) setUser(JSON.parse(savedUser));
+    if (savedTheme) setTheme(savedTheme);
     setIsInitializing(false);
   }, []);
 
@@ -28,6 +29,12 @@ const App: React.FC = () => {
   const handleLogout = () => {
     setUser(null);
     localStorage.removeItem('tg_user');
+  };
+
+  const toggleTheme = () => {
+    const newTheme = theme === 'dark' ? 'light' : 'dark';
+    setTheme(newTheme);
+    localStorage.setItem('tg_theme', newTheme);
   };
 
   if (isInitializing) return null;
@@ -46,14 +53,18 @@ const App: React.FC = () => {
   };
 
   return (
-    <Layout 
-      user={user} 
-      activeTab={activeTab} 
-      setActiveTab={setActiveTab} 
-      onLogout={handleLogout}
-    >
-      {renderContent()}
-    </Layout>
+    <div className={theme}>
+      <Layout 
+        user={user} 
+        activeTab={activeTab} 
+        setActiveTab={setActiveTab} 
+        onLogout={handleLogout}
+        theme={theme}
+        toggleTheme={toggleTheme}
+      >
+        {renderContent()}
+      </Layout>
+    </div>
   );
 };
 
