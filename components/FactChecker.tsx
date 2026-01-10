@@ -22,12 +22,13 @@ const FactChecker: React.FC = () => {
     { label: "Market Panic", text: "Major central bank to freeze all withdrawals for 48 hours starting tonight." }
   ];
 
+  // Faster scan step progression (600ms vs 1500ms)
   useEffect(() => {
     let interval: any;
     if (isLoading) {
       interval = setInterval(() => {
         setScanStep(prev => (prev + 1) % 4);
-      }, 1500);
+      }, 600);
     } else {
       setScanStep(0);
     }
@@ -69,6 +70,9 @@ HASH: ${result.hash}
     if (!input.trim() && !image) return;
     setIsLoading(true);
     setError(null);
+    // Optimized: Result clears immediately for new scan
+    setResult(null);
+    
     try {
       const analysis = await analyzeClaim(input, image || undefined);
       const hashData = JSON.stringify({ ...analysis, input, image: !!image, t: Date.now() });
@@ -107,40 +111,40 @@ HASH: ${result.hash}
   };
 
   return (
-    <div className="max-w-5xl mx-auto space-y-12 pb-24 will-change-transform">
+    <div className="max-w-5xl mx-auto space-y-12 pb-24 will-change-transform font-sans">
       {/* Header */}
       <div className="text-center space-y-6">
         <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-600/10 border border-blue-500/20 text-blue-400 text-[10px] font-black tracking-widest uppercase">
           <Cpu className="w-3 h-3" />
-          Neural Engine v3.0 Pro Active
+          Neural Link High-Speed
         </div>
         <h1 className="text-6xl font-black tracking-tighter leading-none bg-gradient-to-b from-white to-slate-500 bg-clip-text text-transparent">
-          Reality Verification
+          Reality Audit
         </h1>
       </div>
 
       {/* Input Module */}
-      <div className="bg-slate-900/40 backdrop-blur-xl border border-slate-800/50 rounded-[3rem] p-10 shadow-2xl relative">
+      <div className="glass-panel border border-white/5 rounded-[3rem] p-10 shadow-2xl relative overflow-hidden">
         <div className="space-y-8 relative z-10">
           <textarea
             value={input}
             onChange={(e) => setInput(e.target.value)}
-            placeholder="Paste text or article URL for deep neural audit..."
+            placeholder="Transmit data for rapid integrity check..."
             className="w-full h-32 bg-black/40 border border-slate-700/50 rounded-3xl p-8 text-2xl focus:ring-2 focus:ring-blue-500/50 outline-none transition-all placeholder:text-slate-800 resize-none font-medium text-slate-100"
           />
           <div className="flex flex-wrap items-center gap-3">
-             <span className="text-[10px] font-black text-slate-600 uppercase tracking-widest mr-2">Scenarios:</span>
+             <span className="text-[10px] font-black text-slate-600 uppercase tracking-widest mr-2">Core Presets:</span>
              {demoScenarios.map((s, i) => (
-              <button key={i} onClick={() => setInput(s.text)} className="px-4 py-2 rounded-xl bg-slate-800/50 border border-slate-700 hover:border-blue-500/50 text-[10px] font-black uppercase text-slate-500 hover:text-blue-400 transition-all">
+              <button key={i} onClick={() => setInput(s.text)} className="px-4 py-2 rounded-xl bg-white/5 border border-white/5 hover:border-blue-500/50 text-[10px] font-black uppercase text-slate-500 hover:text-blue-400 transition-all">
                 {s.label}
               </button>
             ))}
           </div>
           <div className="flex items-center justify-between pt-4">
             <div className="flex items-center gap-4">
-              <button onClick={() => fileInputRef.current?.click()} className="flex items-center gap-3 px-6 py-4 rounded-2xl bg-slate-800/80 hover:bg-slate-700 border border-slate-700 transition-all font-bold text-sm">
+              <button onClick={() => fileInputRef.current?.click()} className="flex items-center gap-3 px-6 py-4 rounded-2xl bg-white/5 hover:bg-white/10 border border-white/5 transition-all font-bold text-sm">
                 <ImageIcon className="w-5 h-5 text-blue-400" />
-                {image ? 'Context Loaded' : 'Attach Visuals'}
+                {image ? 'Media Captured' : 'Visual Context'}
               </button>
               <input type="file" ref={fileInputRef} onChange={(e) => {
                  const file = e.target.files?.[0];
@@ -154,17 +158,29 @@ HASH: ${result.hash}
             <button
               onClick={handleCheck}
               disabled={isLoading || (!input.trim() && !image)}
-              className="px-12 py-5 rounded-[2rem] bg-blue-600 hover:bg-blue-500 disabled:opacity-50 text-white font-black flex items-center gap-4 transition-all shadow-xl hover:scale-[1.02] active:scale-95"
+              className="px-12 py-5 rounded-[2rem] bg-blue-600 hover:bg-blue-500 disabled:opacity-50 text-white font-black flex items-center gap-4 transition-all shadow-xl hover:scale-[1.02] active:scale-95 group overflow-hidden relative"
             >
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:animate-shimmer" />
               {isLoading ? <Loader2 className="w-7 h-7 animate-spin" /> : <ShieldCheck className="w-7 h-7" />}
-              {isLoading ? 'Neural Processing...' : 'Verify Intelligence'}
+              {isLoading ? 'Decrypting Integrity...' : 'Initiate Audit'}
             </button>
           </div>
         </div>
       </div>
 
-      {result && (
-        <div className="space-y-8 animate-in slide-in-from-bottom-12 duration-700">
+      {isLoading && (
+         <div className="flex flex-col items-center gap-6 animate-pulse">
+            <div className="flex gap-2">
+               {[0, 1, 2, 3].map(i => (
+                 <div key={i} className={`h-1.5 w-16 rounded-full transition-all duration-300 ${scanStep === i ? 'bg-blue-500 scale-x-110 shadow-lg shadow-blue-500/50' : 'bg-slate-800'}`} />
+               ))}
+            </div>
+            <p className="text-[10px] font-black uppercase tracking-[0.4em] text-blue-400">Turbo Verifying Stream...</p>
+         </div>
+      )}
+
+      {result && !isLoading && (
+        <div className="space-y-8 animate-in slide-in-from-bottom-12 duration-500">
           <div className={`p-1 bg-gradient-to-br rounded-[3.5rem] shadow-2xl ${getVerdictStyles(result.verdict)}`}>
             <div className="bg-[#0b0f1a] rounded-[3.4rem] p-12 relative overflow-hidden">
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 relative z-10">
