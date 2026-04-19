@@ -1,20 +1,35 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
+🛡️ TruthGuard
 
-# Run and deploy your AI Studio app
+TruthGuard is an AI-powered misinformation detection platform designed to analyze text and URLs in real time, helping users distinguish between fake, real, or mixed claims with transparency and confidence.
 
-This contains everything you need to run your app locally.
+🚀 Features
+🔍 Real-Time Claim Analysis
+Analyze text and URLs instantly to detect misinformation.
+🧠 AI-Powered Verification
+Uses advanced language models to evaluate claims against reliable sources.
+📊 Credibility Scoring
+Assigns clear credibility scores (Fake / Real / Mixed) with detailed explanations.
+🔗 URL Fact-Checking
+Extracts and verifies claims from web content.
+🧾 Tamper-Resistant Logs
+Stores verification records securely for transparency and auditability.
+👥 Community Insights (Planned)
+Enable users to contribute, review, and discuss claim verifications.
+🏗️ Tech Stack
+Frontend: React / Next.js
+Backend: Node.js / Express
+AI/ML: LLM APIs (e.g., OpenAI, Hugging Face)
+Database: MongoDB / PostgreSQL
+Blockchain (Optional): For tamper-proof logs
+📦 Installation
+# Clone the repository
+git clone https://github.com/yourusername/truthguard.git
 
-View your app in AI Studio: https://ai.studio/apps/drive/1sGVPLruTFA3c18CQfJ3yY1eSKfJFxbj1
+# Navigate into the project
+cd truthguard
 
-## Run Locally
+# Install dependencies
+npm install
 
-**Prerequisites:**  Node.js
-
-
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+# Run the development server
+npm run dev
