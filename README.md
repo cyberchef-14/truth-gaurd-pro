@@ -23,7 +23,7 @@ Database: MongoDB / PostgreSQL
 Blockchain (Optional): For tamper-proof logs
 📦 Installation
 # Clone the repository
-git clone https://github.com/yourusername/truthguard.git
+git clone https://github.com/cyberchef-14/truthguard.git
 
 # Navigate into the project
 cd truthguard
